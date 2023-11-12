@@ -1,0 +1,140 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Montserrat" sans-serif;
+  overflow-x: hidden;
+}
+
+/* Navbar */
+nav {
+  display: flex;
+  background-color: rgb(101, 46, 153);
+  justify-content: space-around;
+  /* padding: 20px 0; kita ganti dengan sistem flexbox(height dan align-items*/
+  color: rgb(229, 202, 255);
+  height: 50px;
+  align-items: center;
+}
+
+nav .logo {
+  font-family: "Pacifico", cursive;
+  /* letter spacing untuk memberi space pada text */
+  letter-spacing: 3px;
+}
+
+nav ul {
+  display: flex;
+  /* list-style: untuk meghilangan buletin li */
+  list-style: none;
+  width: 40%;
+  /* space-between untuk memberi jarak itemsnya */
+  justify-content: space-between;
+}
+
+nav ul li a {
+  color: rgb(229, 202, 255);
+  /* text-decoration: none;untuk menghilangkan garis bawah pada text */
+  text-decoration: none;
+  /* untuk mengecilkan link navnya jika kita beri font-size: 1em; maka yang kecil font defaultnya(bawaannya) biar kompleks kita beri ukuran 0.8  */
+  font-size: 0.8em;
+}
+
+nav ul li a:hover {
+  color: rgb(250, 240, 255);
+}
+
+/* Humberger Menu */
+.menu-toggle {
+  /* buat parentnya/pembungkusnya displaynya flex jadi garis humbergernya akan ke kanan tapi kita juga bisa atur garisnya ke bawah dengan flex direction: column; */
+  display: none;
+  flex-direction: column;
+  /* biar ada jaraknya, jarak ini nanti kita akan distribusikan  spacenya dengan justify-content: space-between; jadi akan terdistribusi merata*/
+  height: 20px;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* 
+supaya mudah ngaturnya checkboxnya kita buat positionnya absolute */
+.menu-toggle input {
+  position: absolute;
+  width: 40px;
+  height: 28px;
+  left: -5px;
+  top: -3px;
+  /* opacity mengubah transparasi semakin rendah nilainya makan akan semakin transparan juga elemennya */
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+/* btw toggle itu displaynya inline kita ubah dulu jadi block */
+.menu-toggle span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: rgb(250, 240, 255);
+  border-radius: 3px;
+  transition: all 0.5s;
+}
+
+/* Humberger menu Animation */
+/* cara baca codenya (cari span dimenu toggle yang dia itu anak ke berapa) */
+.menu-toggle span:nth-child(2) {
+  transform-origin: 0 0;
+}
+
+.menu-toggle span:nth-child(4) {
+  transform-origin: 0 100%;
+}
+
+/* keketika input dimenu toggle ini di dichecked maka cari css yang merupakan sibling atau sodara kandung yang merupakan anak kedua */
+.menu-toggle input:checked ~ span:nth-child(2) {
+  background-color: white;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+.menu-toggle input:checked ~ span:nth-child(4) {
+  background-color: white;
+  transform: rotate(-45deg) translate(-1px, 0);
+}
+.menu-toggle input:checked ~ span:nth-child(3) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* Responsive 3 Breakpoint */
+/* Size tablet */
+/* pembacaan codenya:jika medianya screen atau layar dan lebar maksimalnya adalah 768 ketika lebarnya segitu apa yang berubah */
+@media (max-width: 768px) {
+  nav ul {
+    width: 50%;
+  }
+}
+
+/* Size Mobile */
+@media (max-width: 576px) {
+  .menu-toggle {
+    display: flex;
+  }
+  nav ul {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 70%;
+    height: 100vh;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(101, 46, 153);
+    z-index: -1;
+    transform: translateX(100%);
+    transition: all 1s;
+    opacity: 0;
+  }
+  nav ul.slide {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
